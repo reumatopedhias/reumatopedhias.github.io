@@ -1,0 +1,18 @@
+{
+  "name": "Reumatologia pediátrica · Métricas à beira do leito",
+  "short_name": "Reumato Ped",
+  "description": "Métricas de reumatologia pediátrica à beira do leito, organizadas por doença.",
+  "lang": "pt-BR",
+  "id": "./",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#faf7fc",
+  "theme_color": "#6a2c8e",
+  "icons": [
+    { "src": "icones/icone-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "icones/icone-512.png", "sizes": "512x512", "type": "image/png" },
+    { "src": "icones/icone-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}

@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Reumatologia pediátrica</title>
+<meta name="description" content="Métricas de reumatologia pediátrica à beira do leito, organizadas por doença.">
+<meta name="theme-color" content="#6a2c8e">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" type="image/png" href="icones/favicon-32.png">
+<link rel="apple-touch-icon" href="icones/apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Reumato Ped">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{color-scheme:light dark;--bg:light-dark(#faf7fc,#15111a);--card:light-dark(#ffffff,#1f1826);--ink:light-dark(#1f1726,#efe8f4);--mut:light-dark(#5f566a,#b3a9bd);--line:light-dark(#e4dcea,#3a3044);--vio:light-dark(#6a2c8e,#c79be3);--vio2:light-dark(#efe3f6,#2f2238);--bar:#6a2c8e}
+:root[data-theme=light]{color-scheme:light}:root[data-theme=dark]{color-scheme:dark}
+*{box-sizing:border-box;min-width:0}
+html,body{margin:0;height:100%}
+body{background:var(--bg);color:var(--ink);font:16px/1.5 "Atkinson Hyperlegible",system-ui,sans-serif;display:flex;flex-direction:column}
+.bar{background:var(--bar);color:#fff;padding:calc(14px + env(safe-area-inset-top)) max(16px,env(safe-area-inset-right)) 14px max(16px,env(safe-area-inset-left));display:flex;align-items:center;gap:10px;flex:none}
+.bar h1{font-size:20px;margin:0;line-height:1.15;flex:1}
+.bar small{display:block;font-size:13px;opacity:.85;font-weight:400}
+.bar button{background:none;border:0;color:#fff;font:inherit;font-size:28px;line-height:1;width:44px;height:44px;border-radius:10px;cursor:pointer;flex:none}
+.bar button:hover,.bar button:focus-visible{background:rgba(255,255,255,.16);outline:none}
+.bar button[hidden]{display:none}
+main{flex:1;display:flex;flex-direction:column;min-height:0}
+.list{width:100%;max-width:640px;margin:0 auto;padding:16px 16px calc(24px + env(safe-area-inset-bottom));display:grid;gap:10px;align-content:start}
+.sec{font-size:13px;color:var(--mut);margin:8px 2px 0;text-transform:uppercase;letter-spacing:.04em}
+.item{display:flex;align-items:center;gap:12px;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px;text-align:left;font:inherit;color:inherit;text-decoration:none;cursor:pointer;width:100%;min-height:64px}
+a.item:hover,a.item:focus-visible{border-color:var(--vio);outline:none}
+.item .ic{width:44px;height:44px;border-radius:12px;background:var(--vio2);color:var(--vio);display:grid;place-items:center;font-weight:700;flex:none;font-size:14px}
+.item div{flex:1}
+.item b{display:block}
+.item span.d{font-size:14px;color:var(--mut)}
+.item.soon{opacity:.6;cursor:default}
+.tag{font-size:12px;background:var(--line);color:var(--mut);border-radius:99px;padding:2px 8px;white-space:nowrap}
+.chev{color:var(--vio);font-size:24px}
+.note{font-size:14px;color:var(--mut)}
+.inst{background:var(--card);border:1px dashed var(--vio);border-radius:14px;padding:14px;margin-top:8px}
+.inst h2{font-size:16px;margin:0 0 4px}
+.inst p{margin:4px 0}
+.inst button{font:inherit;font-weight:700;border-radius:10px;min-height:44px;padding:8px 16px;cursor:pointer;border:0;background:var(--vio);color:#fff;margin-top:6px}
+iframe{border:0;width:100%;flex:1;background:var(--bg)}
+footer{font-size:13px;color:var(--mut);line-height:1.45}
+footer p{margin:6px 0}
+</style>
+</head>
+<body>
+<header class="bar">
+  <button type="button" id="voltar" aria-label="Voltar" hidden>‹</button>
+  <h1 id="titulo">Reumatologia pediátrica<small>Métricas à beira do leito</small></h1>
+</header>
+<main id="tela"></main>
+<script>
+{
+/* Para acrescentar uma métrica: crie a calculadora no próprio repositório da organização
+   (ex.: reumatopedhias/jadas) e coloque o endereço em "url" abaixo. Sem "url" = "em breve". */
+const DOENCAS=[
+ {id:'dmj',sigla:'DMJ',nome:'Dermatomiosite juvenil',metricas:[
+   {id:'jdmai',sigla:'AI',nome:'JDMAI 1 e 2',desc:'Atividade da doença · exame por postura',url:'jdmai/'}]},
+ {id:'aij',sigla:'AIJ',nome:'Artrite idiopática juvenil',metricas:[
+   {id:'jadas',sigla:'JA',nome:'JADAS',desc:'Versão a definir'}]},
+ {id:'lesj',sigla:'LESj',nome:'Lúpus eritematoso sistêmico juvenil',metricas:[
+   {id:'sledai',sigla:'SL',nome:'SLEDAI-2K',desc:'LLDAS e DORIS a decidir'}]},
+];
+const $=s=>document.querySelector(s);
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const prontas=d=>d.metricas.filter(m=>m.url).length;
+const item=(href,sigla,nome,desc,pronta)=>pronta
+ ?`<a class="item" href="${href}"><span class="ic">${esc(sigla)}</span><div><b>${esc(nome)}</b><span class="d">${esc(desc)}</span></div><span class="chev" aria-hidden="true">›</span></a>`
+ :`<div class="item soon" aria-disabled="true"><span class="ic">${esc(sigla)}</span><div><b>${esc(nome)}</b><span class="d">${esc(desc)}</span></div><span class="tag">em breve</span></div>`;
+const plural=n=>n===1?'1 métrica disponível':n+' métricas disponíveis';
+const titulo=(t,s)=>{$('#titulo').innerHTML=`${esc(t)}<small>${esc(s)}</small>`;};
+const standalone=matchMedia('(display-mode: standalone)').matches||navigator.standalone===true;
+const ios=/iphone|ipad|ipod/i.test(navigator.userAgent)||(navigator.platform==='MacIntel'&&navigator.maxTouchPoints>1);
+let pedidoInstalar=null;
+addEventListener('beforeinstallprompt',e=>{e.preventDefault();pedidoInstalar=e;if(!location.hash||location.hash==='#')render();});
+const blocoInstalar=()=>{
+ if(standalone)return '';
+ if(pedidoInstalar)return `<div class="inst"><h2>Usar como aplicativo</h2><p class="note">Instale para abrir pelo ícone, em tela cheia e sem internet.</p><button type="button" id="instalar">Instalar no celular</button></div>`;
+ if(ios)return `<div class="inst"><h2>Usar como aplicativo</h2><p class="note">No Safari, toque em <b>Compartilhar</b> (o quadrado com a seta para cima) e depois em <b>Adicionar à Tela de Início</b>.</p></div>`;
+ return `<div class="inst"><h2>Usar como aplicativo</h2><p class="note">No Chrome do Android, abra o menu <b>⋮</b> e toque em <b>Instalar app</b> ou <b>Adicionar à tela inicial</b>.</p></div>`;
+};
+const rodape=`<footer><p>Ferramenta de apoio para residentes. Não substitui o julgamento clínico. Traduções livres, sem validação transcultural; as referências estão em cada calculadora.</p><p>Nenhum dado de paciente é guardado ou enviado: tudo fica só na tela e some ao fechar.</p></footer>`;
+const render=()=>{
+ const [did,mid]=location.hash.replace(/^#\/?/,'').split('/');
+ const d=DOENCAS.find(x=>x.id===did),m=d&&d.metricas.find(x=>x.id===mid&&x.url);
+ const tela=$('#tela');$('#voltar').hidden=!d;
+ if(m){titulo(m.nome,d.nome);tela.innerHTML=`<iframe src="${esc(m.url)}" title="${esc(m.nome)}"></iframe>`;document.title=m.nome;return;}
+ if(d){titulo(d.nome,'Métricas usadas no serviço');tela.innerHTML=`<div class="list">${d.metricas.map(x=>item('#'+d.id+'/'+x.id,x.sigla,x.nome,x.desc,!!x.url)).join('')}</div>`;document.title=d.nome;return;}
+ titulo('Reumatologia pediátrica','Métricas à beira do leito');document.title='Reumatologia pediátrica';
+ tela.innerHTML=`<div class="list"><p class="sec">Escolha a doença do paciente</p>${DOENCAS.map(x=>{const n=prontas(x);return item('#'+x.id,x.sigla,x.nome,n?plural(n):x.metricas.map(y=>y.nome).join(' · '),n>0);}).join('')}${blocoInstalar()}${rodape}</div>`;
+ const b=$('#instalar');if(b)b.onclick=async()=>{pedidoInstalar.prompt();await pedidoInstalar.userChoice;pedidoInstalar=null;render();};
+};
+/* navegação: cada toque num item vira uma entrada no histórico, para o "voltar" do Android funcionar */
+document.addEventListener('click',e=>{const a=e.target.closest('a.item[href^="#"]');if(!a)return;e.preventDefault();history.pushState({app:true},'',a.getAttribute('href'));render();scrollTo(0,0);});
+addEventListener('popstate',render);
+addEventListener('hashchange',render);
+$('#voltar').onclick=()=>{
+ if(history.state&&history.state.app)history.back();
+ else{const [did,mid]=location.hash.replace(/^#\/?/,'').split('/');history.replaceState(null,'',mid?'#'+did:location.pathname);render();}
+};
+render();
+if('serviceWorker' in navigator)addEventListener('load',()=>navigator.serviceWorker.register('sw.js').catch(()=>{}));
+}
+</script>
+</body>
+</html>
