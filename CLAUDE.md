@@ -14,6 +14,6 @@ Página inicial da organização GitHub `reumatopedhias`, publicada em https://r
 - O `sw.js` não deve interceptar `/questionarios/`: os questionários são preenchidos pelo paciente e ficam fora do app dos residentes.
 
 ## Decisões
-- Doenças planejadas: DMJ (JDMAI, pronta), AIJ (JADAS, versão a definir; ideia: contar as 71 articulações e mostrar JADAS-10/27/71 e cJADAS juntos), LESj (SLEDAI-2K; LLDAS e DORIS a decidir, incluindo o limite pediátrico de prednisona).
+- Doenças planejadas: DMJ (JDMAI, pronta), AIJ (JADAS pronta: boneco de 71 articulações, cJADAS-10 em destaque, JADAS-10/27/71 e critérios de Wallace; sJADAS e JSpADA em breve), LESj (SLEDAI-2K; LLDAS e DORIS a decidir, incluindo o limite pediátrico de prednisona).
 - Público inicial: residentes do serviço. O link é público (GitHub Pages), mas não é divulgado.
 - Não guardar dados de pacientes (sem localStorage nem envio para servidor).
