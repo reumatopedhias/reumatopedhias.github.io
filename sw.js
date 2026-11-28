@@ -4,8 +4,8 @@
    Fotos, ícones e fontes: usa a cópia guardada e atualiza em segundo plano.
    Só cuida da página inicial e das calculadoras listadas em PASTAS; o resto do site (ex.: /questionarios/) passa direto.
    Ao acrescentar uma calculadora: inclua a pasta em PASTAS e os arquivos em ARQUIVOS, e aumente VERSAO. */
-const VERSAO = 'rp-v3';
-const PASTAS = ['jdmai/', 'jadas/', 'sjadas/'];
+const VERSAO = 'rp-v4';
+const PASTAS = ['jdmai/', 'jadas/', 'sjadas/', 'jspada/'];
 const ARQUIVOS = [
   './', 'manifest.webmanifest',
   'icones/icone-192.png', 'icones/icone-512.png', 'icones/icone-maskable-512.png', 'icones/apple-touch-icon.png', 'icones/favicon-32.png',
@@ -15,6 +15,7 @@ const ARQUIVOS = [
   'jdmai/img/tornozelo.jpg', 'jdmai/img/tornozelo-b.jpg',
   'jadas/',
   'sjadas/',
+  'jspada/',
 ];
 const base = self.registration.scope;
 const abs = p => new URL(p, base).href;
